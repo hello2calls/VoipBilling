@@ -1,0 +1,48 @@
+<html> 
+<title>Download de chamadas</title>
+<head></head>
+<body>
+
+
+<form name="frmBusca" method="post" action="?a=buscar">
+    <input type="text" name="arquivo" />
+    <input type="submit"  value="Buscar" />
+</form>
+
+
+
+<?php
+
+$a = $_GET['a'];
+
+//define('DIR_DOWNLOAD', '/var/spool/asterisk/outgoing/');
+define('DIR_DOWNLOAD', '/tmp/');
+
+if ($a == "buscar") {
+
+$arquivo = $_GET['arquivo'];
+//$arquivo = trim($_POST['arquivo'];
+
+//$arquivo = filter_var($arquivo, FILTER_SANITIZE_STRING);
+
+$arquivo = basename($arquivo);
+
+$caminho_download = DIR_DOWNLOAD . $arquivo; 
+
+if (!file_exists($caminho_download))
+        die('Arquivo não encontrado!');
+
+header('Content-type: octet/stream');
+
+header('Content-Length: '.filesize($caminho_download));
+
+readfile($caminho_download);
+echo $caminho_download ;
+
+exit; 
+
+
+?>
+
+</body>
+</html>
