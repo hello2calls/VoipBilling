@@ -1,1 +1,0 @@
-../blue-classic/app.js
